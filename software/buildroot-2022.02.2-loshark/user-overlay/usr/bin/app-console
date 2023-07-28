@@ -1,0 +1,11 @@
+#!/bin/sh
+
+dtachez -a /tmp/.dt_app
+
+EEE="$?"
+
+if [ "$EEE" != "0" ]; then
+	echo "App is not running, run init-app.sh to start the app."
+fi
+
+exit $EEE

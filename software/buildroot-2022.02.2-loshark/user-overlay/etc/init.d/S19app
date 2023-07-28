@@ -1,0 +1,30 @@
+#!/bin/sh
+
+start() {
+	printf "Starting app: "
+	start-stop-daemon --start --background --oknodo --quiet --exec /sbin/init-app.sh \
+		&& echo "OK" || echo "FAIL"
+}
+
+stop() {
+	printf "Stopping app: "
+	start-stop-daemon --stop --background --oknodo --quiet --exec /sbin/init-app.sh \
+		&& echo "OK" || echo "FAIL"
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart|reload)
+		stop
+		sleep 1
+		start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac

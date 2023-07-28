@@ -1,0 +1,11 @@
+# <file system>			<mount pt>				<type>		<options>						<dump>	<pass>
+#/dev/root				/						jfs			noauto							0		0
+proc					/proc					proc		defaults						0		0
+#devtmpfs				/dev					devtmpfs	defaults						0		0
+devpts					/dev/pts				devpts		defaults						0		0
+#tmpfs					/dev/shm				ramfs		defaults						0		0
+tmpfs					/tmp					ramfs		defaults						0		0
+sysfs					/sys					sysfs		defaults						0		0
+configfs				/sys/kernel/config		configfs	defaults						0		0
+debugfs					/sys/kernel/debug		debugfs		defaults						0		0
+#/dev/mmcblk0p2			/data					jfs			noauto							0		0

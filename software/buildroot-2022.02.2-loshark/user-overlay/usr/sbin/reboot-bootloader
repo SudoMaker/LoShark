@@ -1,0 +1,5 @@
+#!/bin/sh
+
+devmem 0x100000cc 32 0x6275726e
+sync
+exec reboot -f
