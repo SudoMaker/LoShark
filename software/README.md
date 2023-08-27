@@ -7,6 +7,13 @@ If you have any questions, open an issue or ask in our Discord server.
 ## rootfs
 Please see [buildroot-2022.02.2-loshark](./buildroot-2022.02.2-loshark)
 
+## initramfs
+Copy the `initramfs-loshark-*.cpio` files to `/tmp`. They will be used when compiling the kernel.
+
+**Binary files in the CPIO file**
+- `/init` - https://github.com/SudoMaker/petitinit/
+- `/jfs_fsck` - jfsutils
+
 ## Bootloader
 Please see https://github.com/Ingenic-community/x-loader
 
