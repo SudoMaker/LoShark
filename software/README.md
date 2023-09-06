@@ -14,10 +14,13 @@ Baud rate is ignored since this is USB CDC ACM.
 **Default Login information**
 
 Username: `root`
+
 Password: `loshark`
 
 ### Resonance REPL console
 Use the command `app-console` to attach to the console. Use `Ctrl-\` to detach.
+
+Only use `Ctrl-C` if you want to terminate the Resonance runtime.
 
 ### Making rootfs read-write
 `mount / -wo remount`
@@ -39,7 +42,7 @@ If you're using a Linux PC, use this one liner to sync your PC time to LoShark:
 echo 'date -u -s @'`date +%s` > /dev/ttyACMx
 ```
 
-Here `ttyACMx` is the terminal you're currently using.
+Here `ttyACMx` is the LoShark terminal you're currently logged in.
 
 ### Transferring files
 The MTP protocol is implemented.
@@ -49,6 +52,9 @@ You probably need to use some 3rdparty software if you use MacOS.
 For advanced users: The `lrzsz` package is also installed.
 
 **Run `sync` in the LoShark console to ensure your changes are written to the flash.**
+
+### Resizing data partition on 4GB devices
+The data partition image is suitable for the 256MB version. If you have the 4GB version, run `mount /data -o remount,resize` to resize it to maximum size.
 
 ## Build
 
@@ -68,10 +74,10 @@ Please see https://github.com/Ingenic-community/x-loader
 ### Linux kernel
 Please see https://github.com/Ingenic-community/linux
 
-- `make ARCH=mips CROSS_COMPILE=mipsel-linux-gnu- menuconfig`
-- Select `SudoMaker LoShark V2.2` in `Machine selection -> Machine type`
-- Customize your stuff as needed
-- `make ARCH=mips CROSS_COMPILE=mipsel-linux-gnu- -j12 uImage`
+- With RTC & PSRAM: `make ARCH=mips CROSS_COMPILE=mipsel-linux-gnu- loshark_l1_v2.2_defconfig`
+- Without RTC & PSRAM: `make ARCH=mips CROSS_COMPILE=mipsel-linux-gnu- loshark_l1_v2.2_lite_defconfig`
+- Customize your stuff as needed: `make ARCH=mips CROSS_COMPILE=mipsel-linux-gnu- menuconfig`
+- Build: `make ARCH=mips CROSS_COMPILE=mipsel-linux-gnu- -j12 uImage`
 
 ### USB firmware update
 - Download and extract the latest `cloner` from https://github.com/Ingenic-community/cloner
@@ -80,7 +86,9 @@ Please see https://github.com/Ingenic-community/linux
 - If you're using Windows, make sure the USB drivers are installed
 - Run `cloner`, and click on the `config` button
 - Select `x1500` and `x1501_loshark_sfc_nor_lpddr_linux.cfg` in the `INFO` tab
-- Select the firmware files in the `POLICY` tab. `boot_stage1`, `boot_stage2`, `kernel` are on the internal flash and must be enabled or disabled at the same time. `mmc1` is the SD NAND.
+- Select the firmware files in the `POLICY` tab:
+    - `boot_stage1`, `boot_stage2`, `kernel` are on the internal flash and must be enabled or disabled at the same time.
+    - `mbr`, `rootfs`, `data` are on the SD NAND.
 - Save the configuration by clicking on `OK`
 - Click on the `Start` button
-- Hold button SW1 on the LoShark PCB and connect it to your computer
+- Run `reboot-bootloader` in LoShark console, or hold button SW1 (BOOTSEL0) on the LoShark PCB and press SW2 (RESET) once.
