@@ -4,20 +4,68 @@ You can download prebuilt images from the "Releases" of this repo.
 
 If you have any questions, open an issue or ask in our Discord server.
 
-## rootfs
+## Usage
+
+### Connecting to LoShark's serial console
+PuTTY is the recommended software. But you can use anything you like.
+
+Baud rate is ignored since this is USB CDC ACM.
+
+**Default Login information**
+
+Username: `root`
+Password: `loshark`
+
+### Resonance REPL console
+Use the command `app-console` to attach to the console. Use `Ctrl-\` to detach.
+
+### Making rootfs read-write
+`mount / -wo remount`
+
+Run `sync` to ensure your changes are written to the flash.
+
+### Setting date/time
+Use the `TZ` environment variable or the `/etc/TZ` file to set the timezone. Only the `UTC+X` format is supported.
+
+Also read this article: https://unix.stackexchange.com/questions/104088/why-does-tz-utc-8-produce-dates-that-are-utc8
+
+Use `date` to set the system time.
+
+Use `hwclock -u -w` to sync system time to RTC.
+
+If you're using a Linux PC, use this one liner to sync your PC time to LoShark:
+
+```
+echo 'date -u -s @'`date +%s` > /dev/ttyACMx
+```
+
+Here `ttyACMx` is the terminal you're currently using.
+
+### Transferring files
+The MTP protocol is implemented.
+
+You probably need to use some 3rdparty software if you use MacOS.
+
+For advanced users: The `lrzsz` package is also installed.
+
+**Run `sync` in the LoShark console to ensure your changes are written to the flash.**
+
+## Build
+
+### rootfs
 Please see [buildroot-2022.02.2-loshark](./buildroot-2022.02.2-loshark)
 
-## initramfs
+### initramfs
 Copy the `initramfs-loshark-*.cpio` files to `/tmp`. They will be used when compiling the kernel.
 
 **Binary files in the CPIO file**
 - `/init` - https://github.com/SudoMaker/petitinit/
 - `/jfs_fsck` - jfsutils
 
-## Bootloader
+### Bootloader
 Please see https://github.com/Ingenic-community/x-loader
 
-## Linux kernel
+### Linux kernel
 Please see https://github.com/Ingenic-community/linux
 
 - `make ARCH=mips CROSS_COMPILE=mipsel-linux-gnu- menuconfig`
@@ -25,7 +73,7 @@ Please see https://github.com/Ingenic-community/linux
 - Customize your stuff as needed
 - `make ARCH=mips CROSS_COMPILE=mipsel-linux-gnu- -j12 uImage`
 
-## USB firmware update
+### USB firmware update
 - Download and extract the latest `cloner` from https://github.com/Ingenic-community/cloner
 - Read the PDFs in `docs` in extracted directory if you're unfamiliar with this tool
 - Copy `x1501_loshark_sfc_nor_lpddr_linux.cfg` to `configs/x1500/` in extracted directory
