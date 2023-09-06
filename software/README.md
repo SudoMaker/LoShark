@@ -45,3 +45,4 @@ Please see https://github.com/Ingenic-community/linux
 - Save the configuration by clicking on `OK`
 - Click on the `Start` button
 - Run `reboot-bootloader` in LoShark console, or hold button SW1 (BOOTSEL0) on the LoShark PCB and press SW2 (RESET) once.
+- When finished, disconnect and reconnect LoShark if it's not rebooted automatically.
