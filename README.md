@@ -1,8 +1,14 @@
 # LoShark
 
-Next-gen USB LoRa debug tool. Runs mainline Linux on itself. Versatile JavaScript ES2015 interface allows access to every SX126x chip register easily. Up to 4GB flash storage allows long-time data collection. Works with any modern PC.
+**The next-gen USB LoRa debug tool**
+- Best-in-class hardware: Ingenic X1501 & Semtech SX126x with DC-DC and TCXO
+- Runs Linux 6.x ([boots mainline Linux](https://hackaday.io/project/192129-loshark/log/221793-loshark-do-run-the-mainline-linux-kernel)) on itself
+- Powered by our ResonanceJS, provides versatile JavaScript ES2015 interface allows access to every SX126x chip register easily
+- [Modern Web-based dashboard](https://su.mk/loshark-app)
+- Large flash storage allows long-time data collection
+- Works with any modern PC
 
-## [Interactive Dashboard](https://su.mk/loshark-app)
+![image](https://github.com/SudoMaker/LoShark/assets/34613827/e7d6cec3-423f-4820-b324-d6ad49e136fb)
 
 ![image](https://github.com/SudoMaker/LoShark/assets/34613827/6e42656b-3d51-45db-9529-d6e84b04e2d3)
 
